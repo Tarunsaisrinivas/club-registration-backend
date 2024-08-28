@@ -15,6 +15,7 @@ router.post('/add', async (req, res) => {
     }
 });
 
+
 // Route to get all students
 router.get('/', async (req, res) => {
     try {
@@ -37,6 +38,7 @@ router.get('/download/excel', async (req, res) => {
             { header: 'Year', key: 'year', width: 10 },
             { header: 'Branch', key: 'branch', width: 15 },
             { header: 'Section', key: 'section', width: 10 },
+            { header: 'College Name', key: 'collegeName', width: 20 },
             { header: 'Gender', key: 'gender', width: 10 },
             { header: 'Mobile No.', key: 'mobileNo', width: 15 },
             { header: 'Email', key: 'email', width: 25 },
@@ -82,10 +84,11 @@ router.get('/download/pdf', async (req, res) => {
 
         students.forEach((student, index) => {
             doc.fontSize(12).text(
-                `${index + 1}. Name: ${student.name}, Year: ${student.year}, Branch: ${student.branch}, Section: ${student.section}, Gender: ${student.gender}, Mobile No: ${student.mobileNo}, Email: ${student.email}, Payment: ${student.payment}`
+                `${index + 1}. Name: ${student.name}, Year: ${student.year}, Branch: ${student.branch}, Section: ${student.section}, College Name: ${student.collegeName}, Gender: ${student.gender}, Mobile No: ${student.mobileNo}, Email: ${student.email}, Payment: ${student.payment}`
             );
             doc.moveDown();
         });
+        
 
         doc.pipe(res);
         doc.end();

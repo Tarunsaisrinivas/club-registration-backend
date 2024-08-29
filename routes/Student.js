@@ -37,7 +37,7 @@ router.get('/download/excel', async (req, res) => {
             { header: 'Name', key: 'name', width: 20 },
             { header: 'Year', key: 'year', width: 10 },
             { header: 'Branch', key: 'branch', width: 15 },
-            { header: 'Section', key: 'section', width: 10 },
+            { header: 'RegNo', key: 'regno', width: 10 },
             { header: 'College Name', key: 'collegeName', width: 20 },
             { header: 'Gender', key: 'gender', width: 10 },
             { header: 'Mobile No.', key: 'mobileNo', width: 15 },

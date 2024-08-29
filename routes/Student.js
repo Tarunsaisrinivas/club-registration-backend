@@ -15,7 +15,6 @@ router.post('/add', async (req, res) => {
     }
 });
 
-
 // Route to get all students
 router.get('/', async (req, res) => {
     try {
@@ -26,6 +25,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Route to download student list as Excel
 router.get('/download/excel', async (req, res) => {
     try {
         const students = await Student.find();
@@ -42,7 +42,8 @@ router.get('/download/excel', async (req, res) => {
             { header: 'Gender', key: 'gender', width: 10 },
             { header: 'Mobile No.', key: 'mobileNo', width: 15 },
             { header: 'Email', key: 'email', width: 25 },
-            { header: 'Payment', key: 'payment', width: 15 }
+            { header: 'Payment', key: 'payment', width: 15 },
+            { header: 'Transaction Id', key: 'transactionId', width: 20 } // Corrected header name
         ];
 
         students.forEach(student => {
@@ -84,11 +85,10 @@ router.get('/download/pdf', async (req, res) => {
 
         students.forEach((student, index) => {
             doc.fontSize(12).text(
-                `${index + 1}. Name: ${student.name}, Year: ${student.year}, Branch: ${student.branch}, Section: ${student.section}, College Name: ${student.collegeName}, Gender: ${student.gender}, Mobile No: ${student.mobileNo}, Email: ${student.email}, Payment: ${student.payment}`
+                `${index + 1}. Name: ${student.name}, Year: ${student.year}, Branch: ${student.branch}, Section: ${student.section}, College Name: ${student.collegeName}, Gender: ${student.gender}, Mobile No: ${student.mobileNo}, Email: ${student.email}, Payment: ${student.payment}, Transaction Id: ${student.transactionId}`
             );
             doc.moveDown();
         });
-        
 
         doc.pipe(res);
         doc.end();
@@ -98,7 +98,7 @@ router.get('/download/pdf', async (req, res) => {
     }
 });
 
-
+// Route to delete a student
 router.delete('/:id', async (req, res) => {
     try {
         const student = await Student.findByIdAndDelete(req.params.id);

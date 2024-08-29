@@ -9,8 +9,8 @@ const StudentSchema = new mongoose.Schema({
     gender: { type: String, enum: ['M', 'F'], required: true },
     mobileNo: { type: String, required: true, length: 10 },
     email: { type: String, required: true },
-    payment: { type: String, enum: ['Online', 'Cash'], required: true },
-    transactionId: {type:String} 
+    payment: { type: String, required: true },
+    transactionId: {type:String, required: true} 
     
 });
 

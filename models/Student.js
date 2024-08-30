@@ -10,8 +10,7 @@ const StudentSchema = new mongoose.Schema({
     mobileNo: { type: String, required: true, length: 10 },
     email: { type: String, required: true },
     payment: { type: String, required: true },
-    transactionId: {type:String, required: true},
-    transactionImage: { type: String }
+    transactionId: {type:String, required: true} 
     
 });
 

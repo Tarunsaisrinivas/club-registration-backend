@@ -4,17 +4,31 @@ const Student = require('../models/Student');
 const PDFDocument = require('pdfkit');
 const ExcelJS = require('exceljs');
 
-// Route to add a new student
-router.post('/add', async (req, res) => {
-    try {
-        const newStudent = new Student(req.body);
-        await newStudent.save();
-        res.status(201).send('Student added successfully');
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-});
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      const ext = path.extname(file.originalname);
+      cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+    }
+  });
+  const upload = multer({ storage: storage });
+
+  router.post('/add', upload.single('transactionImage'), async (req, res) => {
+    try {
+      const newStudent = new Student({
+        ...req.body,
+        transactionImage: req.file ? req.file.filename : null
+      });
+      await newStudent.save();
+      res.status(201).send('Student added successfully');
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  });
 // Route to get all students
 router.get('/', async (req, res) => {
     try {

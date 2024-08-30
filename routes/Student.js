@@ -43,7 +43,8 @@ router.get('/download/excel', async (req, res) => {
             { header: 'Mobile No.', key: 'mobileNo', width: 15 },
             { header: 'Email', key: 'email', width: 25 },
             { header: 'Payment', key: 'payment', width: 15 },
-            { header: 'Transaction Id', key: 'transactionId', width: 20 } // Corrected header name
+            { header: 'Transaction Id', key: 'transactionId', width: 20 },
+            { header: 'Team Name', key: 'teamName', width: 20 },
         ];
 
         students.forEach(student => {
@@ -85,7 +86,7 @@ router.get('/download/pdf', async (req, res) => {
 
         students.forEach((student, index) => {
             doc.fontSize(12).text(
-                `${index + 1}. Name: ${student.name}, Year: ${student.year}, Branch: ${student.branch}, Section: ${student.section}, College Name: ${student.collegeName}, Gender: ${student.gender}, Mobile No: ${student.mobileNo}, Email: ${student.email}, Payment: ${student.payment}, Transaction Id: ${student.transactionId}`
+                `${index + 1}. Name: ${student.name}, Year: ${student.year}, Branch: ${student.branch}, Section: ${student.section}, College Name: ${student.collegeName},Team Name:${student.teamName} Gender: ${student.gender}, Mobile No: ${student.mobileNo}, Email: ${student.email}, Payment: ${student.payment}, Transaction Id: ${student.transactionId}`
             );
             doc.moveDown();
         });
